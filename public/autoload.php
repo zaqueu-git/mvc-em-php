@@ -11,10 +11,12 @@ spl_autoload_register(function ($filename) {
         $file = str_replace('\\', '/', $file);
     }
 
+    //echo "<br>" . $file . "<br>";
+
     if (file_exists($file)) {
         require $file;
     } else {
-        echo 'Erro ao importar o arquivo!';
+        //echo '<br>Erro ao importar o arquivo!<br>';
     }
 });
 ?>

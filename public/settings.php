@@ -1,29 +1,32 @@
 <?php
+// DEFINE O HORÁRIO DO SERVIDOR
+
+date_default_timezone_set('America/Sao_Paulo');
+
 // DEPURAÇÃO
-define('DEBUG', true);
+
+define('DEBUG', false);
 
 // PASTA DO PROJETO NO SERVIDOR
+
 define('PATH_FOLDER', '/mvc/');
 
 // CAMIMNHO RAIZ NO SERVIDOR
+
 define('PATH_ROOT', dirname(__FILE__));
 
 // URL RAIZ
+
 define('URL_ROOT', $_SERVER['HTTP_HOST']);
 
-// DEFINE SE VAI MOSTRAR OS ERROS
-ini_set('display_errors', DEBUG);
-ini_set('display_startup_erros', DEBUG);
+// MOSTRAR ERROS
 
-// DEFINE O HORÁRIO DO SERVIDOR
-date_default_timezone_set('America/Sao_Paulo');
-
-// TRATAMENTO DE ERROS E EXCEÇÕES
-function myCustomErrorHandler(int $errNo, string $errMsg, string $file, int $line) {
-    if (DEBUG == true) {
-        echo "#[$errNo] occurred in [$file] at line [$line]: [$errMsg]";
-    }
+if (DEBUG == true) {
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+} else {
+    ini_set('display_errors', 0);
+    ini_set('display_startup_errors', 0);
+    error_reporting(0);
 }
-
-set_error_handler('myCustomErrorHandler');
-?>

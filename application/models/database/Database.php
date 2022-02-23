@@ -1,11 +1,11 @@
 <?php
-namespace application\core;
+namespace application\models\database;
 
 use PDO;
 
 class Database
 {
-    private $conn;
+    private $conn = false;
     
     public function __construct($type)
     {
@@ -28,12 +28,19 @@ class Database
 
         $dbDriver = 'mysql:dbname='. $dbName .';host=' . $dbServer;
 
-        $pdo = new PDO($dbDriver,$dbUser,$dbPassword);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $pdo->exec("set names utf8");
+        try {
+            
+            $pdo = new PDO($dbDriver,$dbUser,$dbPassword);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $pdo->exec("set names utf8");
 
-        $this->conn = $pdo;
+            $this->conn = $pdo;
 
+        } catch (\Throwable $th) {
+            if (DEBUG == true) {
+                echo $th;
+            }
+        }
     }
 
     public function getConn()
