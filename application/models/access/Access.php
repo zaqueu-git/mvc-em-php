@@ -1,6 +1,8 @@
 <?php
 namespace application\models\access;
 
+use application\libraries\exceptions\MyCustomException;
+
 class Access
 {
     public function __construct()
