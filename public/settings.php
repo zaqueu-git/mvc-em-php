@@ -5,7 +5,7 @@ date_default_timezone_set('America/Sao_Paulo');
 
 // DEPURAÇÃO
 
-define('DEBUG', false);
+define('DEBUG', true);
 
 // PASTA DO PROJETO NO SERVIDOR
 

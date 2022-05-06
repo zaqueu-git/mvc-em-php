@@ -3,94 +3,85 @@ namespace application\core;
 
 class App
 {
-    private $url;
-    private $class;
+    private $routes = [];
     private $method;
+    private $path;
+    private $params;
 
-    public function __construct() 
+    public function __construct()
     {
-        $this->getUrl();
-        $this->getClass();
-        $this->getMethod();
-        $this->getController();
+        $method = $_SERVER['REQUEST_METHOD'];
 
-        call_user_func_array([$this->class, $this->method], []);
+        $path = parse_url($_SERVER['REQUEST_URI']);
+        $path = strtolower($path['path']);
+        $path = trim($path,'');
+        $path = str_replace(PATH_FOLDER, '/', $path);
+
+        $this->method = $method;
+        $this->path = $path;
     }
 
-    private function getUrl()
+    public function get(string $route, string $action)
     {
-        $this->url = parse_url($_SERVER['REQUEST_URI']);
-        $this->url = strtolower($this->url['path']);
-        $this->url = trim($this->url,'');
-        $this->url = str_replace(PATH_FOLDER, '', $this->url);
-        $this->url = explode('/', $this->url);
+        $this->add('GET', $route, $action);
     }
 
-    private function getClass()
+    public function post(string $route, string $action)
     {
-        // StudyCaps
+        $this->add('POST', $route, $action);
+    }
 
-        if (!empty($this->url[0])) {
+    public function add(string $method, string $route, string $action)
+    {
+        $this->routes[$method][$route] = $action;
+    }
 
-            $class = explode('-', $this->url[0]);
+    public function getRoutes()
+    {
+        return $this->routes;
+    }
 
-            foreach ($class as $key => $value) {
-                $class[$key] = ucfirst($value) . "Controller";
-            }
+    public function getParams()
+    {
+        return $this->params;
+    }
 
-            $this->class = implode("", $class);
+    public function handler()
+    {
+        if (empty($this->routes[$this->method])) {
+            return false;
         }
-    }
 
-    private function getMethod()
-    {
-        // camelCase
-
-        if (!empty($this->url[1])) {
-
-            $method = explode('-', $this->url[1]);
-
-            foreach ($method as $key => $value) {
-                if ($key == 0) {
-                    continue;
-                }
-
-                $method[$key] = ucfirst($value);
-            }
-
-            $this->method = implode("", $method);
+        if (isset($this->routes[$this->method][$this->path])) {
+            return $this->routes[$this->method][$this->path];
         }
-    }
 
-    private function getController()
-    {
-        $class = $this->class;
-        $method = $this->method;
-
-        if (file_exists('../application/controllers/' . $class . '.php')) {
-            require '../application/controllers/' . $class . '.php';
-
-            $class = new $class();
-
-            if (method_exists($class, $method)) {
-                $this->class = $class;
-                return true;
+        foreach ($this->routes[$this->method] as $route => $action) {
+            $result = $this->checkUrl($route, $this->path);
+            if ($result >= 1) {
+                return $action;
             }
         }
 
-        $class = "NotFoundController";
-        $method = "pageNotFound";
-
-        if (file_exists('../application/controllers/' . $class . '.php')) {
-            require '../application/controllers/' . $class . '.php';
-
-            $class = new $class();
-
-            if (method_exists($class, $method)) {
-                $this->class = $class;
-                $this->method = $method;
-                return true;
-            }
-        }
+        return false;
     }
+
+    private function checkUrl(string $route, $path)
+    {
+        preg_match_all('/\{([^\}]*)\}/', $route, $variables);
+
+        $regex = str_replace('/', '\/', $route);
+
+        foreach ($variables[0] as $k => $variable) {
+            $replacement = '([a-zA-Z0-9\-\_\ ]+)';
+            $regex = str_replace($variable, $replacement, $regex);
+        }
+
+        $regex = preg_replace('/{([a-zA-Z]+)}/', '([a-zA-Z0-9+])', $regex);
+        $result = preg_match('/^' . $regex . '$/', $path, $params);
+        $this->params = $params;
+
+        return $result;
+    }    
+
 }

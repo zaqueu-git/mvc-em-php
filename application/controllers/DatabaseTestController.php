@@ -1,4 +1,6 @@
 <?php
+namespace application\controllers;
+
 use application\core\Controller;
 use application\libraries\exceptions\MyCustomException;
 use application\models\database\Database;
