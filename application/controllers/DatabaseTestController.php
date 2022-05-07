@@ -2,8 +2,8 @@
 namespace application\controllers;
 
 use application\core\Controller;
-use application\libraries\exceptions\MyCustomException;
-use application\models\database\Database;
+use application\helpers\database\Database;
+use application\helpers\CustomExceptions;
 
 class DatabaseTestController extends Controller
 {
@@ -15,13 +15,13 @@ class DatabaseTestController extends Controller
             $conn = $Database->getConn();
 
             if ($conn == false) {
-                throw new MyCustomException("Error connecting to database");
+                throw new CustomExceptions("Error connecting to database");
             }
 
             echo "Connected database";
 
-        } catch (MyCustomException $e) {
-            echo $e->getMessage();
+        } catch (CustomExceptions $e) {
+            $e->save();
         }
     }
 }

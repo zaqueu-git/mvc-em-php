@@ -1,6 +1,8 @@
 <?php
 namespace application\core;
 
+use application\helpers\CustomErrors;
+
 class App
 {
     private $routes = [];
@@ -10,14 +12,13 @@ class App
 
     public function __construct()
     {
-        $method = $_SERVER['REQUEST_METHOD'];
-
+        $this->method = $_SERVER['REQUEST_METHOD'];
+        
         $path = parse_url($_SERVER['REQUEST_URI']);
         $path = strtolower($path['path']);
         $path = trim($path,'');
         $path = str_replace(PATH_FOLDER, '/', $path);
-
-        $this->method = $method;
+        
         $this->path = $path;
     }
 
@@ -36,34 +37,24 @@ class App
         $this->routes[$method][$route] = $action;
     }
 
-    public function getRoutes()
-    {
-        return $this->routes;
-    }
-
-    public function getParams()
-    {
-        return $this->params;
-    }
-
-    public function handler()
+    public function run()
     {
         if (empty($this->routes[$this->method])) {
-            return false;
+            return $this->executeRoute('NotFoundController::pageNotFound');
         }
 
         if (isset($this->routes[$this->method][$this->path])) {
-            return $this->routes[$this->method][$this->path];
+            return $this->executeRoute($this->routes[$this->method][$this->path]);
         }
 
         foreach ($this->routes[$this->method] as $route => $action) {
             $result = $this->checkUrl($route, $this->path);
             if ($result >= 1) {
-                return $action;
+                return $this->executeRoute($action);
             }
         }
 
-        return false;
+        return $this->executeRoute('NotFoundControllerx::pageNotFound');
     }
 
     private function checkUrl(string $route, $path)
@@ -82,6 +73,23 @@ class App
         $this->params = $params;
 
         return $result;
-    }    
+    }
 
+    private function executeRoute(string $route)
+    {
+        try {
+
+            $route = 'application\controllers\~~' . $route;
+            $route = str_replace('~~', '', $route);
+            $route = explode('::', $route);
+            
+            $controller = new $route[0];
+            $method = $route[1];
+    
+            echo $controller->$method($this->params);
+
+        } catch (\Throwable $th) {
+            new CustomErrors($th);
+        }
+    }
 }

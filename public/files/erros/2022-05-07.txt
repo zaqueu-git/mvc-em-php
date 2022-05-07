@@ -1,0 +1,1 @@
+||{"time":"17:05:33","error":"ENTROU B","line":19,"file":"C:\\xampp\\htdocs\\mvc\\application\\controllers\\AccessController.php"}
