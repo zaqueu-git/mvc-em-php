@@ -3,9 +3,9 @@
 
 date_default_timezone_set('America/Sao_Paulo');
 
-// DEPURAÇÃO
+// DEPURAÇÃO (localhost, homologation, production)
 
-define('DEBUG', true);
+define('DEBUG', 'localhost');
 
 // PASTA DO PROJETO NO SERVIDOR
 
@@ -21,12 +21,12 @@ define('URL_ROOT', $_SERVER['HTTP_HOST']);
 
 // MOSTRAR ERROS
 
-if (DEBUG == true) {
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
-} else {
+if (DEBUG == 'production') {
     ini_set('display_errors', 0);
     ini_set('display_startup_errors', 0);
     error_reporting(0);
+} else {
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
 }   

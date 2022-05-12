@@ -8,7 +8,7 @@ class CustomErrors
         $body = [
             'time' => date('H:m:s'),
             'error' => (string) $error,
-        ];
+        ];     
         $body = '||' . json_encode($body);
 
         $pathFolder = PATH_ROOT . '\/files\/erros\/';

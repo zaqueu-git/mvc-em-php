@@ -1,50 +1,25 @@
 <?php
-namespace application\helpers\database;
+namespace application\helpers;
 
 use PDO;
+use application\helpers\CustomErrors;
 
 class Database
 {
-    private $conn = false;
-    
-    public function __construct($type)
+    public function mysql($dbServer, $dbName, $dbUser, $dbPassword)
     {
-        switch ($type) {
-            case 'localhost':
-                $this->localhost();
-                break;
-            default:
-                # code...
-                break;
-        }
-    }
-
-    private function localhost()
-    {
-        $dbServer = "localhost";
-        $dbName = "basetest";
-        $dbUser = "root";
-        $dbPassword = "";
-
-        $dbDriver = 'mysql:dbname='. $dbName .';host=' . $dbServer;
-
         try {
-            
-            $pdo = new PDO($dbDriver,$dbUser,$dbPassword);
-            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $pdo->exec("set names utf8");
+            $dbDriver = 'mysql:dbname='. $dbName .';host=' . $dbServer;            
 
-            $this->conn = $pdo;
+            $PDO = new PDO($dbDriver,$dbUser,$dbPassword);
+            $PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $PDO->exec("set names utf8");
 
-        } catch (\Throwable $th) {
-            if (DEBUG == true) {
-                echo $th;
-            }
+            return $PDO;
+        } catch (\Throwable $th) {            
+            new CustomErrors(utf8_encode($th->getMessage()));
+        } finally {
+            return "could not connect to database";
         }
-    }
-
-    public function getConn()
-    {
-        return $this->conn;
     }
 }

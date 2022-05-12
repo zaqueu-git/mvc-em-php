@@ -54,7 +54,7 @@ class App
             }
         }
 
-        return $this->executeRoute('NotFoundControllerx::pageNotFound');
+        return $this->executeRoute('NotFoundController::pageNotFound');
     }
 
     private function checkUrl(string $route, $path)
