@@ -9,16 +9,18 @@ class Model
 
     public function __construct()
     {
-        switch (DEBUG) {
+        switch ($_SERVER['HTTP_HOST']) {
             case 'localhost':
                $this->localhost();
                 break;
-            case 'homologation':
+            case 'URL HOMOLOGATION':
                 $this->homologation();
                 break;
-            case 'production':
+            case 'URL PRODUCTION':
                 $this->production();
                 break;
+            default:
+                $this->localhost();
         }
     }
 
