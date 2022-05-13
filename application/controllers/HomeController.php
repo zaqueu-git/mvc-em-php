@@ -11,6 +11,6 @@ class HomeController extends Controller
 
     public function init()
     {
-        echo "página inicial<br>";
+        echo "página inicial";
     }
 }

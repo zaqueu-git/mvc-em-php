@@ -53,7 +53,39 @@ class ExampleClientController extends Controller
         $Client->setCell($Cell);
         */
 
-        $Client = new PersonLegal();        
+        $Email = new Email();
+        $Email->setEmail("alexandre_lucas_figueiredo@homail.com");
+
+        $Address = new Address();
+        $Address->setZipCode("79073-144");
+        $Address->setRoad("Rua Curvelos");
+        $Address->setNumber("974");
+        $Address->setComplement("Sem complemento");
+        $Address->setDistrict("Jardim Centro Oeste");
+        $Address->setCity("Campo Grande");
+        $Address->setState("MS");
+        $Address->setLatitude("888888");
+        $Address->setLongitude("999999");        
+        
+        $Phone = new Phone();
+        $Phone->setDdd("67");
+        $Phone->setNumber("3821-5122");
+
+        $Cell = new Phone();
+        $Cell->setDdd("67");
+        $Cell->setNumber("98791-8283");
+
+        $Client = new PersonLegal();
+        $Client->setName("Alexandre Lucas Gustavo Figueiredo");
+        $Client->setCpf("688.698.765-86");
+        $Client->setRg("22.234.033-2");
+        $Client->setSex("Masculino");
+        $Client->setBirthDate("02/04/1959");
+        $Client->setEmail($Email);
+        $Client->setAddress($Address);
+        $Client->setPhone($Phone);
+        $Client->setCell($Cell);
+
         $Client->create();
     }
 }

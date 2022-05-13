@@ -16,10 +16,8 @@ class Database
             $PDO->exec("set names utf8");
 
             return $PDO;
-        } catch (\Throwable $th) {            
-            new CustomErrors(utf8_encode($th->getMessage()));
-        } finally {
-            return "could not connect to database";
+        } catch (\Throwable $th) {
+            new CustomErrors($th);
         }
     }
 }

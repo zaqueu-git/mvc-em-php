@@ -5,7 +5,7 @@ use Exception;
 
 class CustomExceptions extends Exception
 {
-    public function __construct($customMessage)
+    public function __construct(string $customMessage)
     {
         parent::__construct($customMessage);
     }
@@ -14,12 +14,11 @@ class CustomExceptions extends Exception
     {
         $body = [
             'time' => date('H:m:s'),
-            'error' => $this->getMessage(),
-            'line' => $this->getLine(),
-            'file' => $this->getFile(),
+            "message" => $this->getMessage(),
+            "trace" => $this->getTraceAsString(),
+            '---------------------',
         ];
-
-        $body = '||' . json_encode($body);
+        $body = implode(PHP_EOL, $body);
 
         $pathFolder = PATH_ROOT . '\/files\/erros\/';
         $pathFile = $pathFolder . date('Y-m-d') . '.txt';        

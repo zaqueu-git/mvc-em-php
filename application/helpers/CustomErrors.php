@@ -3,13 +3,14 @@ namespace application\helpers;
 
 class CustomErrors
 {
-    public function __construct($error)
+    public function __construct(string $error)
     {
         $body = [
-            'time' => date('H:m:s'),
-            'error' => (string) $error,
-        ];     
-        $body = '||' . json_encode($body);
+            'time' => date('H:m:s') . PHP_EOL,
+            'error' => $error . PHP_EOL,
+            '---------------------' . PHP_EOL,
+        ];
+        $body = implode('', $body);
 
         $pathFolder = PATH_ROOT . '\/files\/erros\/';
         $pathFile = $pathFolder . date('Y-m-d') . '.txt';        
@@ -20,8 +21,8 @@ class CustomErrors
 
         $file = fopen($pathFile, 'a');  
         $fileSize = filesize($pathFile);
-        
-        if ($fileSize > 2000) {
+
+        if ($fileSize > 1000000000) {
             return false;
         }
 

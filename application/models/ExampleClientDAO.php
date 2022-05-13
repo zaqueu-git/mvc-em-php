@@ -2,20 +2,18 @@
 namespace application\models;
 
 use application\core\Model;
-use application\helpers\DataAccessObject;
 
 class ExampleClientDAO extends Model
 {
-    private $conn;
-    
+    private $dbsystem;
+
     public function __construct()
     {
-        this->conn = new DataAccessObject($this->systemConn);
+        $this->dbsystem = $this->dbsystem();
     }
     
-    public function create()
+    public function create($Client)
     {
-        $rs = $conn->select("SELECT * FROM people");
-        var_dump($rs);
+        $rs = $this->dbsystem->insert("people", ["name" => "teste"]);
     }
 }

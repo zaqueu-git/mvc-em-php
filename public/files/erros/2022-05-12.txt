@@ -1,1 +1,106 @@
-||||||{"time":"02:05:45","error":"SQLSTATE[HY000] [2002] php_network_getaddresses: getaddrinfo failed: Este host n\u00e3o \u00e9 conhecido. "}||{"time":"03:05:38","error":"Error: Call to undefined method application\\helpers\\Database::prepare() in C:\\xampp\\htdocs\\mvc\\application\\helpers\\DataAccessObject.php:97\nStack trace:\n#0 C:\\xampp\\htdocs\\mvc\\application\\models\\ExampleClientDAO.php(13): application\\helpers\\DataAccessObject->select('SELECT * FROM p...')\n#1 C:\\xampp\\htdocs\\mvc\\application\\entities\\Client.php(187): application\\models\\ExampleClientDAO->create()\n#2 C:\\xampp\\htdocs\\mvc\\application\\controllers\\ExampleClientController.php(57): application\\entities\\Client->create()\n#3 C:\\xampp\\htdocs\\mvc\\application\\core\\App.php(89): application\\controllers\\ExampleClientController->create(NULL)\n#4 C:\\xampp\\htdocs\\mvc\\application\\core\\App.php(47): application\\core\\App->executeRoute(Array)\n#5 C:\\xampp\\htdocs\\mvc\\public\\index.php(18): application\\core\\App->run()\n#6 {main}"}
+20:05:55
+peoplex
+ WHERE WHERE id = 1
+SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'WHERE id = 1' at line 1
+#0 C:\xampp\htdocs\mvc\application\helpers\DataAccessObject.php(90): PDOStatement->execute()
+#1 C:\xampp\htdocs\mvc\application\models\ExampleClientDAO.php(17): application\helpers\DataAccessObject->delete('peoplex', ' WHERE WHERE id...')
+#2 C:\xampp\htdocs\mvc\application\entities\Client.php(187): application\models\ExampleClientDAO->create()
+#3 C:\xampp\htdocs\mvc\application\controllers\ExampleClientController.php(57): application\entities\Client->create()
+#4 C:\xampp\htdocs\mvc\application\core\App.php(89): application\controllers\ExampleClientController->create(NULL)
+#5 C:\xampp\htdocs\mvc\application\core\App.php(47): application\core\App->executeRoute(Array)
+#6 C:\xampp\htdocs\mvc\public\index.php(20): application\core\App->run()
+#7 {main}
+---------------------
+20:05:25
+peoplex
+ WHERE id = 1
+SQLSTATE[42S02]: Base table or view not found: 1146 Table 'basetest.peoplex' doesn't exist
+#0 C:\xampp\htdocs\mvc\application\helpers\DataAccessObject.php(90): PDOStatement->execute()
+#1 C:\xampp\htdocs\mvc\application\models\ExampleClientDAO.php(17): application\helpers\DataAccessObject->delete('peoplex', ' WHERE id = 1')
+#2 C:\xampp\htdocs\mvc\application\entities\Client.php(187): application\models\ExampleClientDAO->create()
+#3 C:\xampp\htdocs\mvc\application\controllers\ExampleClientController.php(57): application\entities\Client->create()
+#4 C:\xampp\htdocs\mvc\application\core\App.php(89): application\controllers\ExampleClientController->create(NULL)
+#5 C:\xampp\htdocs\mvc\application\core\App.php(47): application\core\App->executeRoute(Array)
+#6 C:\xampp\htdocs\mvc\public\index.php(20): application\core\App->run()
+#7 {main}
+---------------------
+20:05:05
+table peoplex
+ WHERE id = 1
+SQLSTATE[42S02]: Base table or view not found: 1146 Table 'basetest.peoplex' doesn't exist
+#0 C:\xampp\htdocs\mvc\application\helpers\DataAccessObject.php(90): PDOStatement->execute()
+#1 C:\xampp\htdocs\mvc\application\models\ExampleClientDAO.php(17): application\helpers\DataAccessObject->delete('peoplex', ' WHERE id = 1')
+#2 C:\xampp\htdocs\mvc\application\entities\Client.php(187): application\models\ExampleClientDAO->create()
+#3 C:\xampp\htdocs\mvc\application\controllers\ExampleClientController.php(57): application\entities\Client->create()
+#4 C:\xampp\htdocs\mvc\application\core\App.php(89): application\controllers\ExampleClientController->create(NULL)
+#5 C:\xampp\htdocs\mvc\application\core\App.php(47): application\core\App->executeRoute(Array)
+#6 C:\xampp\htdocs\mvc\public\index.php(20): application\core\App->run()
+#7 {main}
+---------------------
+21:05:03
+table peoplex
+teste
+id = 18
+SQLSTATE[42S02]: Base table or view not found: 1146 Table 'basetest.peoplex' doesn't exist
+#0 C:\xampp\htdocs\mvc\application\helpers\DataAccessObject.php(71): PDOStatement->execute()
+#1 C:\xampp\htdocs\mvc\application\models\ExampleClientDAO.php(17): application\helpers\DataAccessObject->update('peoplex', Array, 'id = 18')
+#2 C:\xampp\htdocs\mvc\application\entities\Client.php(187): application\models\ExampleClientDAO->create()
+#3 C:\xampp\htdocs\mvc\application\controllers\ExampleClientController.php(57): application\entities\Client->create()
+#4 C:\xampp\htdocs\mvc\application\core\App.php(89): application\controllers\ExampleClientController->create(NULL)
+#5 C:\xampp\htdocs\mvc\application\core\App.php(47): application\core\App->executeRoute(Array)
+#6 C:\xampp\htdocs\mvc\public\index.php(20): application\core\App->run()
+#7 {main}
+---------------------
+21:05:52
+table peoplex
+{"name":"teste"}
+id = 18
+SQLSTATE[42S02]: Base table or view not found: 1146 Table 'basetest.peoplex' doesn't exist
+#0 C:\xampp\htdocs\mvc\application\helpers\DataAccessObject.php(71): PDOStatement->execute()
+#1 C:\xampp\htdocs\mvc\application\models\ExampleClientDAO.php(17): application\helpers\DataAccessObject->update('peoplex', Array, 'id = 18')
+#2 C:\xampp\htdocs\mvc\application\entities\Client.php(187): application\models\ExampleClientDAO->create()
+#3 C:\xampp\htdocs\mvc\application\controllers\ExampleClientController.php(57): application\entities\Client->create()
+#4 C:\xampp\htdocs\mvc\application\core\App.php(89): application\controllers\ExampleClientController->create(NULL)
+#5 C:\xampp\htdocs\mvc\application\core\App.php(47): application\core\App->executeRoute(Array)
+#6 C:\xampp\htdocs\mvc\public\index.php(20): application\core\App->run()
+#7 {main}
+---------------------
+21:05:03
+table peoplex
+{"name13":"testexx"}
+SQLSTATE[42S02]: Base table or view not found: 1146 Table 'basetest.peoplex' doesn't exist
+#0 C:\xampp\htdocs\mvc\application\helpers\DataAccessObject.php(36): PDOStatement->execute()
+#1 C:\xampp\htdocs\mvc\application\models\ExampleClientDAO.php(17): application\helpers\DataAccessObject->insert('peoplex', Array)
+#2 C:\xampp\htdocs\mvc\application\entities\Client.php(187): application\models\ExampleClientDAO->create()
+#3 C:\xampp\htdocs\mvc\application\controllers\ExampleClientController.php(57): application\entities\Client->create()
+#4 C:\xampp\htdocs\mvc\application\core\App.php(89): application\controllers\ExampleClientController->create(NULL)
+#5 C:\xampp\htdocs\mvc\application\core\App.php(47): application\core\App->executeRoute(Array)
+#6 C:\xampp\htdocs\mvc\public\index.php(20): application\core\App->run()
+#7 {main}
+---------------------
+21:05:15
+table people
+{"name13":"testexx"}
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'name13' in 'field list'
+#0 C:\xampp\htdocs\mvc\application\helpers\DataAccessObject.php(36): PDOStatement->execute()
+#1 C:\xampp\htdocs\mvc\application\models\ExampleClientDAO.php(17): application\helpers\DataAccessObject->insert('people', Array)
+#2 C:\xampp\htdocs\mvc\application\entities\Client.php(187): application\models\ExampleClientDAO->create()
+#3 C:\xampp\htdocs\mvc\application\controllers\ExampleClientController.php(57): application\entities\Client->create()
+#4 C:\xampp\htdocs\mvc\application\core\App.php(89): application\controllers\ExampleClientController->create(NULL)
+#5 C:\xampp\htdocs\mvc\application\core\App.php(47): application\core\App->executeRoute(Array)
+#6 C:\xampp\htdocs\mvc\public\index.php(20): application\core\App->run()
+#7 {main}
+---------------------
+21:05:24
+table people
+{"namex":"testexx"}
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'namex' in 'field list'
+#0 C:\xampp\htdocs\mvc\application\helpers\DataAccessObject.php(36): PDOStatement->execute()
+#1 C:\xampp\htdocs\mvc\application\models\ExampleClientDAO.php(17): application\helpers\DataAccessObject->insert('people', Array)
+#2 C:\xampp\htdocs\mvc\application\entities\Client.php(187): application\models\ExampleClientDAO->create()
+#3 C:\xampp\htdocs\mvc\application\controllers\ExampleClientController.php(57): application\entities\Client->create()
+#4 C:\xampp\htdocs\mvc\application\core\App.php(89): application\controllers\ExampleClientController->create(NULL)
+#5 C:\xampp\htdocs\mvc\application\core\App.php(47): application\core\App->executeRoute(Array)
+#6 C:\xampp\htdocs\mvc\public\index.php(20): application\core\App->run()
+#7 {main}
+---------------------

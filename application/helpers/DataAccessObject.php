@@ -1,6 +1,8 @@
 <?php
 namespace application\helpers;
 
+use PDO;
+
 class DataAccessObject
 {
     private $db;
@@ -12,114 +14,203 @@ class DataAccessObject
 
     public function insert(string $table, array $data)
     {
-        $fields = implode(", ", array_keys($data));
-        $values = ":" . implode(", :", array_keys($data));
+        try {
+            $fields = implode(", ", array_keys($data));
+            $values = ":" . implode(", :", array_keys($data));
+    
+            $sql = "INSERT INTO {$table} ({$fields}) VALUES ({$values}) ";
+    
+            $stmt = $this->db->prepare($sql);
+    
+            foreach ($data as $key => $value) {
+    
+                if (is_int($value)) {
+                    $type = PDO::PARAM_INT;
+                } else {
+                    $type = PDO::PARAM_STR;
+                }
+    
+                $stmt->bindValue(":$key", $value, $type);
+            }
+    
+            if ($stmt->execute()) {
+                if ($stmt->rowCount() > 0) {
+                    return $this->db->lastInsertId();
+                }
+            }
+            
+            return false;
+        } catch (\Throwable $th) {
+            $table = "table " . $table;
 
-        $sql = "INSERT INTO {$table} ({$fields}) VALUES ({$values}) ";
-
-        $stmt = $this->db->prepare($sql);
-
-        foreach ($data as $key => $value) {
-
-            if (is_int($value)) {
-                $type = 'PDO::PARAM_INT';
+            if (empty($data)) {
+                $data = "no data";
             } else {
-                $type = 'PDO::PARAM_STR';
+                $data = json_encode($data);
             }
 
-            $stmt->bindValue(":$key", $value, $type);
-        }
+            $array = [
+                "table" => $table,
+                "data" => $data,
+                "message" => $th->getMessage(),
+                "trace" => $th->getTraceAsString(),
+            ];
+            $array = implode(PHP_EOL, $array);
+            
+            new CustomErrors($array);
 
-        if ($stmt->execute()) {
-            if ($stmt->rowCount() > 0) {
-                return $this->db->lastInsertId();
-            }
+            return false;
         }
-        
-        return false;
     }
 
     public function update(string $table, array $data, string $conditions)
     {
-        $parameters = NULL;
+        try {
+            $parameters = NULL;
 
-        foreach ($data as $key => $value) {
-            $parameters .= "$key=:$key, ";
-        }
+            foreach ($data as $key => $value) {
+                $parameters .= "$key=:$key, ";
+            }
+    
+            $parameters = rtrim($parameters, ", ");
+    
+            $sql = "UPDATE {$table} SET {$parameters} WHERE {$conditions}";
+    
+            $stmt = $this->db->prepare($sql);
+    
+            foreach ($data as $key => $value) {
+    
+                if (is_int($value)) {
+                    $type = PDO::PARAM_INT;
+                } else {
+                    $type = PDO::PARAM_STR;
+                }
+    
+                $stmt->bindValue(":$key", $value, $type);
+            }
+    
+            if ($stmt->execute()) {
+                if ($stmt->rowCount() > 0) {
+                    return true;
+                }
+            }
+    
+            return false;
+        } catch (\Throwable $th) {
+            $table = "table " . $table;
 
-        $parameters = rtrim($parameters, ", ");
-
-        $sql = "UPDATE {$table} SET {$parameters} WHERE {$conditions}";
-
-        $stmt = $this->db->prepare($sql);
-
-        foreach ($data as $key => $value) {
-
-            if (is_int($value)) {
-                $type = 'PDO::PARAM_INT';
+            if (empty($data)) {
+                $data = "no data";
             } else {
-                $type = 'PDO::PARAM_STR';
+                $data = json_encode($data);
             }
 
-            $stmt->bindValue(":$key", $value, $type);
-        }
-
-        if ($stmt->execute()) {
-            if ($stmt->rowCount() > 0) {
-                return true;
+            if (empty($conditions)) {
+                $conditions = "no conditions";
             }
-        }
 
-        return false;
+            $array = [
+                "table" => $table,
+                "data" => $data,
+                "conditions" => $conditions,
+                "message" => $th->getMessage(),
+                "trace" => $th->getTraceAsString(),
+            ];
+            $array = implode(PHP_EOL, $array);
+            
+            new CustomErrors($array);
+
+            return false;
+        }
     }
 
     public function delete(string $table, $conditions = NULL)
     {
-        if ($conditions != NULL) {
-            $conditions = " WHERE " . $conditions;
-        }
-
-        $sql = "DELETE FROM {$table} {$conditions}";
-
-        $stmt = $this->db->prepare($sql);
-
-        if ($stmt->execute()) {
-            if ($stmt->rowCount() > 0) {
-                return true;
+        try {
+            if ($conditions != NULL) {
+                $conditions = " WHERE " . $conditions;
             }
-        }
+    
+            $sql = "DELETE FROM {$table} {$conditions}";
+    
+            $stmt = $this->db->prepare($sql);
+    
+            if ($stmt->execute()) {
+                if ($stmt->rowCount() > 0) {
+                    return true;
+                }
+            }
+    
+            return false;
+        } catch (\Throwable $th) {
+            $table = "table " . $table;
 
-        return false;
+            if (empty($conditions)) {
+                $conditions = "no conditions";
+            }
+            
+            $array = [
+                "table" => $table,
+                "conditions" => $conditions,
+                "message" => $th->getMessage(),
+                "trace" => $th->getTraceAsString(),
+            ];
+            $array = implode(PHP_EOL, $array);
+            
+            new CustomErrors($array);
+
+            return false;
+        }
     }
     
     public function select(string $sql, $parameters = [])
     {
-        $stmt = $this->db->prepare($sql);
+        try {
+            $stmt = $this->db->prepare($sql);
 
-        foreach ($parameters as $key => $value) {
-
-            if (is_int($value)) {
-                $type = 'PDO::PARAM_INT';
+            foreach ($parameters as $key => $value) {
+    
+                if (is_int($value)) {
+                    $type = PDO::PARAM_INT;
+                } else {
+                    $type = PDO::PARAM_STR;
+                }
+    
+                $stmt->bindValue(":$key", $value, $type);
+    
+            }
+    
+            if ($stmt->execute()) {
+    
+                if ($stmt->rowCount() == 1) {
+                    return $stmt->fetch(PDO::FETCH_OBJ);
+                }
+    
+                if ($stmt->rowCount() > 1) {
+                    return $stmt->fetchAll(PDO::FETCH_OBJ);
+                }
+    
+            }
+    
+            return [];
+        } catch (\Throwable $th) {
+            if (empty($parameters)) {
+                $parameters = "no parameters";
             } else {
-                $type = 'PDO::PARAM_STR';
+                $parameters = json_encode($parameters);
             }
 
-            $stmt->bindValue(":$key", $value, $type);
+            $array = [
+                "sql" => $sql,
+                "parameters" => $parameters,
+                "message" => $th->getMessage(),
+                "trace" => $th->getTraceAsString(),
+            ];
+            $array = implode(PHP_EOL, $array);
 
+            new CustomErrors($array);
+
+            return false;
         }
-
-        if ($stmt->execute()) {
-
-            if ($stmt->rowCount() == 1) {
-                return $stmt->fetch();
-            }
-
-            if ($stmt->rowCount() > 1) {
-                return $stmt->fetchAll();
-            }
-
-        }
-
-        return [];
     }
 }

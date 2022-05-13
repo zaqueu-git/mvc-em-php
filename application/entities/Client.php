@@ -180,16 +180,16 @@ class Client
     {
         $this->cell = $cell;
     }
-
+    
+    /**
+     * create
+     *
+     * @return void
+     */
     public function create()
     {
         $ExampleClientDAO = new ExampleClientDAO();
-        $ExampleClientDAO->create();        
-    }
-
-    public function alter()
-    {
-        $ExampleClientDAO = new ExampleClientDAO();        
-    }    
+        $ExampleClientDAO->create($this);
+    }  
 }
 ?>
