@@ -1,8 +1,8 @@
 <?php
-namespace application\helpers;
+namespace application\models\helpers;
 
 use PDO;
-use application\helpers\CustomErrors;
+use application\models\helpers\CustomErrors;
 
 class Database
 {

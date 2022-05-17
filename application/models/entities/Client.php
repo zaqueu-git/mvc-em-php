@@ -1,7 +1,7 @@
 <?php
-namespace application\entities;
+namespace application\models\entities;
 
-use application\models\ExampleClientDAO;
+use application\models\dao\ExampleClientDAO;
 
 class Client
 {

@@ -1,7 +1,7 @@
 <?php
-namespace application\entities;
+namespace application\models\entities;
 
-use application\entities\Client;
+use application\models\entities\Client;
 
 class PersonPhysical extends Client
 {

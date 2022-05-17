@@ -1,0 +1,13 @@
+21:05:30
+PDOException: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in C:\xampp\htdocs\mvc\application\models\helpers\Database.php:14
+Stack trace:
+#0 C:\xampp\htdocs\mvc\application\models\helpers\Database.php(14): PDO->__construct('mysql:dbname=ba...', 'root', 'x')
+#1 C:\xampp\htdocs\mvc\application\core\Model.php(30): application\models\helpers\Database->mysql('localhost', 'basetest', 'root', 'x')
+#2 C:\xampp\htdocs\mvc\application\models\dao\ExampleClientDAO.php(12): application\core\Model->dbsystem()
+#3 C:\xampp\htdocs\mvc\application\models\entities\Client.php(191): application\models\dao\ExampleClientDAO->__construct()
+#4 C:\xampp\htdocs\mvc\application\controllers\ExampleClientController.php(88): application\models\entities\Client->create()
+#5 C:\xampp\htdocs\mvc\application\core\App.php(89): application\controllers\ExampleClientController->create(NULL)
+#6 C:\xampp\htdocs\mvc\application\core\App.php(47): application\core\App->executeRoute(Array)
+#7 C:\xampp\htdocs\mvc\public\index.php(20): application\core\App->run()
+#8 {main}
+---------------------

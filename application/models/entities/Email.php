@@ -1,5 +1,5 @@
 <?php
-namespace application\entities;
+namespace application\models\entities;
 
 class Email 
 {

@@ -2,12 +2,11 @@
 namespace application\controllers;
 
 use application\core\Controller;
-use application\helpers\CustomExceptions;
-use application\helpers\Request;
-use application\entities\PersonLegal;
-use application\entities\Email;
-use application\entities\Address;
-use application\entities\Phone;
+use application\models\helpers\Request;
+use application\models\entities\PersonLegal;
+use application\models\entities\Email;
+use application\models\entities\Address;
+use application\models\entities\Phone;
 
 class ExampleClientController extends Controller
 {

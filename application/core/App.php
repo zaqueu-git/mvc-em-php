@@ -1,7 +1,7 @@
 <?php
 namespace application\core;
 
-use application\helpers\CustomErrors;
+use application\models\helpers\CustomErrors;
 
 class App
 {

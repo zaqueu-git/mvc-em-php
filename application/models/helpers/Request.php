@@ -1,5 +1,5 @@
 <?php
-namespace application\helpers;
+namespace application\models\helpers;
 
 class Request
 {

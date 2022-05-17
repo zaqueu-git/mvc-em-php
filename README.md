@@ -1,6 +1,6 @@
 # Projeto simples de PHP com MVC
 
-### Root
+### root
 
 * readme.txt
 ```
@@ -12,39 +12,54 @@ manual básico do sistema
 configuração de diretório e redirecionamento
 ```
 
-### Application
+### application
 
 * .htaccess
 ```
 configuração de diretório e redirecionamento
 ```
 
-* libraries
-```
-armazena as classes padrões dos sistema
-```
-
 * core
 ```
-configuração da estrutura do sistema, definindo rota, classe, método e parâmetros
+configuração da estrutura do sistema
 ```
 
 * controllers
 ```
-envia comandos para o modelo para atualizar o seu estado
+configuração dos eventos que ?? entre a view e model
 ```
 
 * models
 ```
-armazena dados e notifica suas visões e controladores associados quando há uma mudança em seu estado
+configuração dos modelos que formam a lógica do sistema
+```
+
+* models -> dao
+```
+configuração dos modelos de persistência de dados
+```
+
+* models -> entities
+```
+configuração dos modelos de entidades do sistema
+```
+
+* models -> services
+```
+configuração dos modelos de validações, cálculos, regras de negócios
+```
+
+* models -> helpers
+```
+configuração dos modelos que auxiliam o desenvolvimento das outras camadas
 ```
 
 * views
 ```
-representação gráfica dos dados presentes no modelo solicitado
+configuração das visualizações que representam a parte do sistema que interage com o usuário
 ```
 
-### Public
+### public
 
 * .htaccess
 ```
@@ -74,11 +89,6 @@ página que inicia o sistema
 * settings.php
 ```
 configuração de constantes do sistema
-```
-
-* template_default.php
-```
-página padrão do corpo html do sistema
 ```
 
 * assets -> css

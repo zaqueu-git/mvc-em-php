@@ -1,5 +1,5 @@
 <?php
-namespace application\helpers;
+namespace application\models\helpers;
 
 use Exception;
 

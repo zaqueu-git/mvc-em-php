@@ -1,5 +1,5 @@
 <?php
-namespace application\models;
+namespace application\models\dao;
 
 use application\core\Model;
 
