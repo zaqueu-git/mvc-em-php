@@ -26,7 +26,7 @@ configuração da estrutura do sistema
 
 * controllers
 ```
-configuração dos eventos que ?? entre a view e model
+configuração dos eventos que intermediam entre a view e o model
 ```
 
 * models
